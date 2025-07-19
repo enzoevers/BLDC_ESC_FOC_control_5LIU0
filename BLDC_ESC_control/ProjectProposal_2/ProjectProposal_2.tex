@@ -1,0 +1,424 @@
+% https://www.ti.com/lit/an/slyt692/slyt692.pdf?ts=1605857946872&ref_url=https%253A%252F%252Fwww.google.com%252F
+% https://core.ac.uk/download/pdf/5165531.pdf
+% https://www.nxp.com/docs/en/supporting-information/DWF13_AMF_AUT_T0526.pdf
+% https://www.researchgate.net/publication/241154402_Vector_Control_of_Trapezoidal_Back-EMF_PM_Machines_Using_Pseudo-Park_Transformation
+% https://electronics.stackexchange.com/questions/354155/what-does-changing-the-throttle-to-a-bldc-esc-actually-do
+% http://www.physbot.co.uk/magnetic-fields-and-induction.html
+% https://pdf.sciencedirectassets.com/308315/1-s2.0-S2352146519X0006X/1-s2.0-S2352146519302388/main.pdf?X-Amz-Security-Token=IQoJb3JpZ2luX2VjELT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIHozHL1ChDLoQD%2FLxsOEIGiTpFxtUmG1JMCbLX5VuSB4AiEA5xOvVGhiMVMo7hDNY6nI2LmXv9pBYOMy73fuNhc1YS8qtAMITRADGgwwNTkwMDM1NDY4NjUiDK4f%2FGwuXpny1208vCqRA3ZeOddL%2BDtFjZk4ctUjOk1mcI7Z1nZotEjKhIR5oL%2BN17DIMD%2Bf7Qpkw7Q9O81T8y2Yx590ZuaIU9iV%2FiLnsZgwvp6BNXmtyjoBm8yTef3zNkgwSnTG2%2B2pdoeHWgPhgBS4R5eihlc8GATUiiGfNGV6q3ZcBH5cLxKHBVZAb9PXw1Z6pZIfypHPD2%2FxwkjacDcc0VIBDgUfPWE0Pkmvv6FyWLkDFgPW4JiNc2wU7hWRct9zltvNl6p89LhpkCo8eWgZzRJngIZtBUi4sCuOj4A8w12utMwOwO2pHoYyYRExw7qMD22IH85aOmNWOloYizWBjt6vLx00GjaTnF35e40sTMYsAv%2BlYY6KUKoHh1n5oNs2KmvzzHRJJSQRwcyAabIT0mn1gJTC3LLXPXkbdftcyxqX8NglRyMNeS0Pmx5v9ydLH4B2hpcfDuHt%2F0YeSbEJPEOn%2BZ5I%2B1SpzCZDDH757JyCos4N%2BegOHQ9kqQJAddfUVfF7lq8sWIjtF0KZQuCqvQrodBYYlw5a%2F3cuhUrbMJKrv%2F4FOusB2yxUDWNPXnkhgWhtOlYZfgRYbAmTuhfU12GjXa6zdHnZZpr6gd2Yyri77kQ6KPFw24C1DWEKHFtH4vs7eZu8q8cyhq4Gbel3FoSOQM37S4lVPRKr9wNEmu%2Bz7Jb8MqR9Urhd1umhthM2oDZ3ZrOKvrZjUoNPu3cIcGtPx4JIT3sT8IXcaMEvl4Bn2haLdyHccSB%2BihY6NP3H%2Be43b9EOUVfBKKyFJW4nsLaHsNdUIbuIrPC3OFb2GJ5tfWw3QyR5euVRYE%2FC5uN48shwvSt7UeOFUJ1ssmJi7ll4S5AZ6rC6%2BXyUvhxBPJDDOQ%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20201208T205138Z&X-Amz-SignedHeaders=host&X-Amz-Expires=300&X-Amz-Credential=ASIAQ3PHCVTYWGJFZXTC%2F20201208%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=8ff0b9901584ee5e72a93ef47fa656e4a78cd904df4ef705380afaadf741c60c&hash=c4588c66f7f1dfb213f2c304f1440a7e1bbb83f37aa16f63fe19258e2d1a79b6&host=68042c943591013ac2b2430a89b270f6af2c76d8dfd086a07176afe7c76c2c61&pii=S2352146519302388&tid=spdf-984671bb-0725-4750-8339-8425b7e4ae53&sid=4aca51da7e0932482f4b859509a93de0496fgxrqb&type=client
+
+\documentclass[]{report}
+\usepackage[english]{babel}
+\usepackage[backend=bibtex]{biblatex}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{float}
+\usepackage{hyperref} %[hidelinks]
+\usepackage{xcolor}
+\usepackage{wrapfig}
+\usepackage{gensymb}
+
+\hypersetup{
+	colorlinks,
+	linkcolor={red!50!black},
+	citecolor={blue!50!black},
+	urlcolor={blue!80!black}
+}
+
+\graphicspath{ {../Img/} }
+\addbibresource{../BLDC_ESC_Control_Bib.bib}
+
+\title{	\huge Field Oriented Control for BLDC motors \\
+		\large Project Proposal \\ 5LIU0}
+\author{Enzo Evers}
+
+\pagestyle{plain}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\newpage
+
+\begin{tabular}{|l|l|}
+	\hline
+	BLDC & Brushless Direct Current \\
+	\hline
+	PMSM & Permanent Magnet Synchronous Motor \\
+	\hline
+	BEMF & Back Electromotive Force \\
+	\hline
+	FOC & Field Oriented Control \\
+	\hline
+	SVM & Space Vector Modulation \\
+	\hline
+	ESC & Electronic Speed Controller \\
+	\hline
+	FC & Flight Controller \\
+	\hline
+	DMA & Direct Memory Access \\
+	\hline
+	FPV & First Person View \\
+	\hline
+	RC & Radio Controlled \\
+	\hline
+	RPM & Rotations Per Minute \\
+	\hline
+	mRPM & mechanical Rotations Per Minute \\
+	\hline
+	eRPM & electrical Rotations Per Minute \\
+	\hline
+	dLRK & distributed LRK \\
+	\hline
+\end{tabular}
+
+\newpage
+
+\chapter{Background}
+All vehicles in the Radio Control (RC) hobby use one or more motors. While some cheaper (or older) RC vehicles use brushed DC motors, most of the motors used today are Brushless Direct Current (BLDC) motors. All BLDC motors require an Electronic Speed Controller (ESC) to be controlled with a microcontroller.
+
+In the (self-build) First Person View (FPV) drone branch of the RC hobby almost all ESCs use the closed source BLHeli\_32 \cite{BLHeli_Git} firmware. Some other ESCs use either BLHeli\_S or BLHeli. While these two are technically open source, only the assembly sources are available \cite{BLHeli_Git}. A small part of the ESCs use the closed source KISS \cite{KISS_website} firmware. The rest of the current firmwares are either created by the company who also makes the complete drone (like DJI \cite{DJI_website}), are outdated, or are a hobby project.
+
+Firmware for the FPV Flight Controllers (FC) however are almost all open source. This of course allows for more input and contribution from the community.
+
+Lately the AM32 \cite{AM32_Git}\cite{AM32_RCGroups} open source ESC firmware project gained some traction. This is a good thing. It is still in development so there are no official products of it yet which can be bought in stores. But once the open source ESC firmware scene becomes bigger, the price of ESC might go down and innovation in the firmware might accelerate.
+
+I want to be part of this innovation and thus want to learn more about efficient BLDC motor control methods in ESCs.
+
+\newpage
+
+\chapter{Goal}
+The goal of this project is to create a control system for BLDC motors used in FPV drones based on the Field Oriented Control (FOC) method (see \ref{section:FOC}). The FOC based control system is a more efficient method of commutating the motor phases (controlling the voltages applied to the phases) compared to the traditional six-step commutation (see \ref{section:six-step_commutation}) at the expense of needing more information about the motor that is driven.
+
+Most ESCs used in the self-build FPV drones make use of six-step commutation (see \ref{section:six-step_commutation}) since this is a method which works with a lot of different motors without needing to tune the controller. This is an important point since everyone uses a different combination of motors and ESCs when building an FPV drone.
+
+As stated earlier, a more efficient method would be to use FOC. The main goal of this method is to maximize the torque of the motor during the whole operation and to use more sinusoidal phase voltages compared to 'block' voltages used in six-step commutation. It also makes the motor quieter and more efficient in terms of power use (resulting in longer flight time). The reason that (almost) no ESCs for self-build drones use FOC is because (1) it requires electrical/mechanical properties of the motor in order to work properly, (2) it requires more hardware on the ESC compared to six-step commutation and (3) it is somewhat more complex. Companies like DJI \cite{DJI_website}, who have full control over the hardware that goes into their drones, don't have this restriction and thus use FOC in for example the Mavic 2 \cite{DJI_mavic_2} and other products \cite{DJI_E5000}. Some KISS ESCs for self-build drones make use of a variant of FOC called sinHybrid. The blog post \cite{KISS_sinHybrid} where the basic idea of sinHybrid is explained also states that FOC is not used al lot in this hobby for the reasons described above.
+
+Because the self-build FPV drone hobby already consists of a lot tinkering and tuning, I don't think that typing in some properties of the motor into the (already consisting) configurator would be a big problem. This is for example already required if someone wants to use FOC in the VESC project \cite{VESC_project_FOC_wizard}. It would even be possible to let the configuration software measure some of the motor properties. This is also done in the VESC project.
+
+\autoref{fig:HighLeveBlockDiagramSystem} shows the basic idea of the system. Since this software is targeted for FPV drones the input from the FC is already determined. This input is a throttle command in the DShot protocol (see \ref{section:ChangingVelocityOnRcBldcMotors}). Another given fact is that the BLDC motor has three phases and that there are no sensors in the motor. From that point on it's all up for debate. The Inverter block is shown in \autoref{fig:BLDC_SixStep_Circuit} and is the same for both six-step commutation and FOC. The difference is how the MOSFETs are driven. The basic idea of the software block is explained throughout this document. 
+
+\begin{figure}[h]
+	\includegraphics[width=\textwidth]{Draw_IO/BlockDiagram.jpg}
+	\caption{High-level block diagram of the system.}
+	\label{fig:HighLeveBlockDiagramSystem}
+\end{figure}
+
+Before I can decide what the challenges are going to be, I first need to get a better understanding of how the existing ESCs work and how FOC differs from that. This 'pre-study' is summarized in chapter \ref{chapter:Basics_of_BLDC_motor_control}.
+
+\chapter{Basics of BLDC motor control (pre-study)} \label{chapter:Basics_of_BLDC_motor_control}
+
+\section{Six-step commutation} \label{section:six-step_commutation}
+% https://www.nxp.com/docs/en/application-note/AN12435.pdf
+One of the methods to drive a BLDC motor is with six-step commutation. BLDC motors usually have three phases (either wound in a delta or a wye configuration (see \ref{section:WindingSchemes})) and are, as the name implies, powered by a DC source. \autoref{fig:BLDC_SixStep_Table} shows the six steps for six-step commutation. The idea is that by connecting the DC voltage source in alternating patterns to the phases, the rotating part in the motor (the rotor) which contains the permanent magnets, gets pulled/pushed by the magnetic field created by the current in the phases.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.45\textwidth]{BLDC_SixStep_Table.jpeg}
+	\caption{Table for the six-step commutation \cite{Digikey_BLDC_SixStep}.}
+	\label{fig:BLDC_SixStep_Table}
+\end{figure}
+
+Note that at each step there is one floating/unconnected phase. This phase can be used to measure the Back Electromotive Force (BEMF) voltage. This voltage is used to measure when to commutate the phases
+
+\autoref{fig:BLDC_SixStep_Circuit} shows the inverter circuit which makes it possible to drive the three phases. To keep the motor rotating, a feedback loop is needed which measures where the rotor is with respect to the stator (using the BEMF). If the rotor is at a certain position the phases are commutated.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{BLDC_SixStep_Circuit.jpeg}
+	\caption{Basic circuit for the six-step commutation \cite{Digikey_BLDC_SixStep}.}
+	\label{fig:BLDC_SixStep_Circuit}
+\end{figure}
+
+To control the speed/torque/current of the motor the voltage at the phases should be changed. This can be done by means of for example PWM or a DC/DC buck converter.
+
+This method is a relative easy way to drive a BLDC motor. It is also a great method to use when you don't know which motor (size, number of magnets, Kv, etc.) will be connected to the ESC. However, when there is no information about the motor (like the number of magnets) no information can be given about the mechanical RPM (mRPM) (see \ref{section:InrunnerOutrunner}) of the rotor.
+
+\section{What is BEMF}
+When the rotor rotates along the stater windings, a voltage is induced in the windings of the stator by Faraday's (and Lenz's) law \cite{Faradays_Law_concepts}. This voltage is called the Electro Motive Force (EMF) and is the derivative of the flux with respect to time.
+
+As can be seen in \autoref{fig:BLDC_SixStep_Table}, at each commutation step there is one floating phase. On this phase the BEMF can be measured. \autoref{fig:NXP_BackEMF_ElectricalRotation_OnePhase} shows the electrical rotation of one phase. As the legend in the figure shows, the dark blue lines span the time that the phase in floating. The spike right after the moment when the phase gets disconnected is due to the freewheeling current through the diodes of the MOSFET half-bridge.
+
+Once the motor is spinning fast enough the BEMF can be sensed. One of the methods of reading the BEMF is by integrating the BEMF voltage after the zero-crossing. By integrating voltage with respect to time you get flux (by Faraday's law \cite{Faradays_Law_concepts}). By comparing the measured flux value to a constant flux set-point parameter it can be determined when to commutate the motor phases. This method is used by one of NXP's implementations \cite{NXP_AN4597} and by Texas Instruments's (TI) InstaSPIN-BLDC software \cite{TI_InstaSPIN_BLDC}. The flux setpoint can be different per motor and thus should be tuned for each motor.
+
+Another (more general) option is to measure the time between disconnecting a phase and the zero-crossings on that phase. The measured time is the time after which this phase should be connected again to the opposite source terminal. This can also be seen in \autoref{fig:NXP_BackEMF_ElectricalRotation_OnePhase}. This works well when the motor is spinning at a constant speed. Both NXP and Texax Instruments state that the flux integration method works better when the speed varies a lot. What makes the timing based method more general than the flux integration method is that no information about the motor is needed.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{NXP_BackEMF_ElectricalRotation_OnePhase.JPG}
+	\caption{Electrical rotation BEMF of one phase \cite{NXP_AN4597}.}
+	\label{fig:NXP_BackEMF_ElectricalRotation_OnePhase}
+\end{figure}
+
+The reason that the flux integration method works is because the flux measured at different speeds can be regarded as a constant for a certain motor \cite{NXP_AN4597}. \autoref{fig:NXP_BackEMF_Integration} shows the integrated voltage (flux) at different speeds.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{NXP_BackEMF_Integration.JPG}
+	\caption{Constant flux value with different motor speeds \cite{NXP_AN4597}.}
+	\label{fig:NXP_BackEMF_Integration}
+\end{figure}
+
+\subsection{BEMF and PWM}
+The line shown in \autoref{fig:NXP_BackEMF_ElectricalRotation_OnePhase} only applies when one of the MOSFETs in the half-bridge is constantly open during the time that it should be connected to the positive DC terminal. However, sometimes you might want to drive the MOSFETs using a PWM signal to change the speed of the motor. The resulting BEMF is shown in \autoref{fig:Microchip_PWM_BackEMF}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{Microchip_PWM_BackEMF.JPG}
+	\caption{BEMF when driven the MOSFETs with PWM \cite{Microchip_AN857}.}
+	\label{fig:Microchip_PWM_BackEMF}
+\end{figure}
+
+The PWM frequency used in BLHeli\_32 ESCs is 24KHz by default while some use up to 48KHz \cite{BLHeli_32_PWM_Frequency}. This frequency can be chosen by the user. 
+
+ST describes a couple of PWM BEMF sampling methods in AN1946 \cite{ST_PWM_BEMF_sampling}.
+
+Another method would be to place a buck converter in front of the inverter to change the applied voltage.
+
+\subsection{Verification with BLHeli\_32}
+To verify that ESCs with the BLHeli\_32 firmware use six-step commutation with PWM driven phases, an oscilloscope was connected to one the ESCs (T-Motor F35A 32-bit 3-6S) in an FPV drone as shown in \autoref{fig:BLHeli_ESC_Test_Connection}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.75\textwidth]{Scope/EmaxEco2306_threePhases/ScopeOnBLHeli32ESC_7Inch.jpg}
+	\caption{Three channels of an oscilloscope connected to the three phases of a BLDC with DC ground as the reference setup.}
+	\label{fig:BLHeli_ESC_Test_Connection}
+\end{figure}
+
+The resulting voltages on the phases when the throttle on the transmitter was set to around 20\% is shown in \autoref{fig:BLHeli_ESC_Test_Scope_20Percent}. This is similar to the waveform shown in \autoref{fig:Microchip_PWM_BackEMF}. It can also be seen that there is always one floating phase (the rising signal which looks like a PWM signal) when there is one phase connected to ground (solid line) and one PWM driven phase conneted to DC source (stable PWM) as seen in the six-step commutation table (\autoref{fig:BLDC_SixStep_Table}). This also shows that BLHeli\_32 uses top driven PWM and not a complementary PWM on both the MOSFETs connected to the positive and negative DC rails.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{Scope/EmaxEco2306_threePhases/20PercentThrottle/20PercentThrottleZoomed.png}
+	\caption{Three channels of an oscilloscope connected to the three phases of a BLDC with DC ground as the reference.}
+	\label{fig:BLHeli_ESC_Test_Scope_20Percent}
+\end{figure}
+
+When zooming in a bit more into the stable PWM of the yellow phase (\autoref{fig:BLHeli_ESC_PWM_Frequency}) it can be seen that the PWM frequency is indeed around 24KHz as stated earlier. In this zoomed frame the blue phase is floating and shows the decreasing BEMF.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{Scope/EmaxEco2306_threePhases/20PercentThrottle/PWMFreq.png}
+	\caption{BLHeli\_32 PWM frequency of around 24KHz (23.61KHz).}
+	\label{fig:BLHeli_ESC_PWM_Frequency}
+\end{figure} 
+
+
+\section{Field Oriented Control (FOC)} \label{section:FOC}
+The main idea of FOC is to control the current in the motor windings such that maximum torque is generated throughout operation. FOC controls the magnetic field of the stator windings such that it leads the magnetic field of the permanent magnets in the rotor by 90\degree. The magnetic field of the stator should thus align the the Q axis shown in \autoref{fig:FOC_Visual_Magnetic_field}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{JantzenLee_Episode8_OnlyRotor.JPG}
+	\caption{$\alpha$$\beta$ and DQ frames of FOC \cite{JantzenLeeUnderstandingMotors}.}
+	\label{fig:FOC_Visual_Magnetic_field}
+\end{figure} 
+
+Field Orientated Control (FOC) is a bit more complex than six-step commutation. The steps involved are (explained in much more detail by Dave Wilson \cite{Teaching_Old_Motors_New_Tricks_--_Part_2}):
+\begin{enumerate}
+	\item Measure the current in the motor.
+	\item Compare the measured current (after transforming the measurements from point 1 with the Clarke and Park transformations) with the current setpoint and generate an error signal (controlling the current, thus the magnetic flux vector, thus torque, thus speed).
+	\item Generate a correction voltage (using the inverse Park and Clarke transformations).
+	\item Modulate the correction voltage into the motor phases (with Space Vector Modulation (SVM)).
+\end{enumerate}
+
+Step 2 is the most involved part of the FOC method. The (inverse) Clarke and Park transformations are not the difficult part (looking from a computation's perspective). They basically are some clever trigonometry calculations. The crucial part of step 2 is to get a precise measurement/estimate for the angle of the rotor's magnetic field with respect to the stationary $\alpha$ axis shown in \autoref{fig:FOC_Visual_Magnetic_field}. This angle determines the angle between the D and $\alpha$ axis and thus the angle of the Q axis (which is always 90\degree from the the D axis). If the calculated angle is not correct, and you align the magnetic field of the stator to the Q axis, then you will not create a magnetic field 90\degree from the actual magnetic field of the rotor in the stator. However, if the error in the calculation is known than this could be compensated.
+
+Controlling the amount of current through the phases in order to generate the correct flux vector is done with two parallel current controllers. In literature these are often PI controllers \cite{Infineon_sensorless_FOC}. One for the D axis, and one for the Q axis.
+
+The angle can be determined either with a sensored or with a sensorless method. The sensorless method \cite{Infineon_sensorless_FOC} uses the BEMF (calculated from the measured currents and known motor parameters) to determine the angle. While with six-step commutation there was always one floating phase on which the BEMF could be measured, with FOC this is not the case.
+
+\subsection{FOC and the BEMF waveform}
+It is often stated that FOC is for Permanent Magnet Synchronous Motors (PMSM) and six-step commutation is for BLDC motors. This is because PMSMs would have a more sinusoidal BEMF compared to a more trapezoidal BEMF for BLDC motors due to the layout of the stator windings.
+
+\autoref{fig:BLDC_BEMF_GND_Ref} shows the BEMF (measured with the ground rail as reference as seen in \autoref{fig:BLHeli_ESC_Test_Connection}) when rotating the motor by hand. What is interesting to see is that the BEMF is indeed somewhat trapezoidal but has two 'bumps' on the top and bottom of their waveform. These bumps disappear as the motor slows down and the BEMF becomes more sinusoidal.
+
+\begin{figure}[H]
+	\centering
+	\subfloat{\includegraphics[width=\textwidth]{Scope/EmaxEco2306_threePhases/Freewheel/FreewheelThreePhasesGround.png}}
+	\hfill
+	\subfloat{\includegraphics[width=\textwidth]{Scope/EmaxEco2306_threePhases/Freewheel/FreewheelThreePhasesGroundZoomed.png}}
+	\caption{BEMF from the three phases of a used motor after spinning the rotor by hand measured with the ground rail (no battery connected) as reference}
+	\label{fig:BLDC_BEMF_GND_Ref}
+\end{figure}
+
+When measuring the BEMF from the same motor but using another phase as the reference (see \autoref{fig:BLDC_BEMF_Phase_Ref_Setup}) the BEMF looks more sinusoidal as seen in \autoref{fig:BLDC_BEMF_Phase_Ref}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.75\textwidth]{Scope/EmaxEco2306_threePhases/FreeWheelSinglePhase_PhaseRef/ESC_OtherPhaseReferenceFreewheel_Setup.jpg}
+	\caption{BEMF from the one phase measured with the another phase as reference. The purple wire and the blue ground wire are disconnected}
+	\label{fig:BLDC_BEMF_Phase_Ref_Setup}
+\end{figure} 
+
+\begin{figure}[H]
+	\centering
+	\subfloat{\includegraphics[width=0.49\textwidth]{Scope/EmaxEco2306_threePhases/FreeWheelSinglePhase_PhaseRef/ESC_OtherPhaseReferenceFreewheel.png}}
+	\hfill
+	\subfloat{\includegraphics[width=0.49\textwidth]{Scope/EmaxEco2306_threePhases/FreeWheelSinglePhase_PhaseRef/ESC_OtherPhaseReferenceFreewheel_Zoomed.png}}
+	\caption{BEMF from one phase measured with another phase as reference}
+	\label{fig:BLDC_BEMF_Phase_Ref}
+\end{figure}
+
+The waveform seen in \autoref{fig:BLDC_BEMF_Phase_Ref} is simply the difference between the two phases (like you would expect) as can be shown with the math function of the oscilloscope in \autoref{fig:BLDC_BEMF_Phase_Ref_difference}. The math function is executed on waveforms similar to the ones shown in \autoref{fig:BLDC_BEMF_GND_Ref}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{Scope/EmaxEco2306_threePhases/Freewheel/FreewheelThreePhasesGround_SubtractoinPhase1And3.png}
+	\caption{Difference between phase voltages}
+	\label{fig:BLDC_BEMF_Phase_Ref_difference}
+\end{figure}
+
+\subsection{Space Vector Modulation (SVM)}
+FOC uses Space Vector Modulation (SVM) to drive the three phases of the motor. The idea of this method is to modulate the voltages in the three phases in such a way that the magnetic flux vector produced by the current in the stator windings becomes a continuous rotational vector. This is different from the six-step commutation where only two phases where driven at each time and thus only 6 magnetic field angles could be created. More information about SVM can be found here \cite{Infineon_sensorless_FOC}, in a workshop by Dave Wilson (from Texas Instruments) \cite{Teaching_Old_Motors_New_Tricks_--_Part_3} and in the video series by Jantzen Lee \cite{JantzenLeeUnderstandingMotors}.
+
+\section{Inrunner vs outrunner} \label{section:InrunnerOutrunner}
+
+Even though the rotor is drawn inside the stator in \autoref{fig:BLDC_SixStep_Table}, it is also possible to have the reverse. When the rotor is inside the stator it is called an inrunner. When the stator is inside the rotor it is called an outrunner (see \autoref{fig:BLDC_Inrunner_VS_Outrunner_Diagram}). RC cars usually use inrunner BLDC motors while drones usually use outrunner BLDC motors. The main difference in general is that an inrunner has higher RPM but lower torque compared to an outrunner when all else is equal \cite{BLDC_Inrunner_VS_Outrunner}.
+	
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.75\textwidth]{InOutRunner-2.png}
+	\caption{Inrunner and outrunner configuration \cite{BLDC_Inrunner_VS_Outrunner_Diagram}.}
+	\label{fig:BLDC_Inrunner_VS_Outrunner_Diagram}
+\end{figure}
+
+\section{Motor winding schemes and terminations} \label{section:WindingSchemes}
+The stator of a three phase BLDC motor always has a multiple of three stator teeth. The teeth are the things around which the copper string is wounded. There are several different winding layouts but the BLDC motors used in FPV drones typically use the distributed LRK (dLRK) scheme (see \autoref{fig:dLrkWindingScheme}) \cite{FpvBldcWindingSchema}. Most BLDC motors used in FPV drones have the same number stator teeth (N) and permanent magnets poles (P) as shown in \autoref{fig:dLrkWindingScheme}. That is, 12N14P. Motors for smaller FPV drone typically use 9N12P and might use a different winding scheme.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{dLRK.jpg}
+	\caption{dLRK winding scheme \cite{CommonBldcWindingSchemes}.}
+	\label{fig:dLrkWindingScheme}
+\end{figure}
+
+Once the windings are made there are six wires coming out of the stator but there are only three phases. The wires can either be connected/terminated in a star/wye/Y or delta fashion (see \autoref{fig:StarVsDeltaTermination}). Each termination has its own pros and cons. The main difference in general is that a delta termination will have a higher Kv and thus will use more current than a wye termination with all else equal \cite{StarVsDeltaTermination_Kv}. In the motors for FPV drones the delta termination is typically used \cite{FpvBldcWindingSchema}. The principle of commutation and FOC for both wye and delta termination is the same.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{BLDC_star_delta.jpg}
+	\caption{Star and Delta termination \cite{StarVsDeltaTermination}.}
+	\label{fig:StarVsDeltaTermination}
+\end{figure}
+
+\section{Electrical vs mechanical rotation}
+
+Once all three phases are driven such that the magnetic flux vector rotated 360\degree, one electrical rotation is finished. An electrical rotation is not the same as a mechanical rotation. Depending on the number of permanent magnets there are on the rotor, one mechanical rotation can consist of one or more electrical rotations.
+
+\section{Changing velocity on RC BLDC motors} \label{section:ChangingVelocityOnRcBldcMotors}
+Currently almost all FCs and ESCs used in the self-build FPV drones make use of the DShot protocol for communication. This is a serial protocol between the FC and the ESC which sends an 11-bit (2048 steps) throttle value \cite{DShot_Overview} (and 5 overhead bits). This throttle value corresponds to the speed of the motor. To make the communication more efficient, DShot makes use of the Direct Memory Access (DMA) channels of the microcontrollers of the FC and ESC.
+
+The reason that DShot is used in most cases is because it is digital. Previously the FC would send an (analogue) PWM/PPM signal to the ESC which was susceptible to noise and deviation. This meant that for analogue communication it was needed to calibrate the ESC to the analogue signal from the FC. With the digital communication this is not needed anymore.
+
+\chapter{Challenges} \label{chapter:Challenges}
+
+\section{Measuring the correct rotor angle}
+To have a good working FOC it is crucial to have an accurate measurement/calculation value of the rotor angle. since almost all BLDC motors in drones are sensorless, a calculation is needed. This means that there are multiple stages in the process which can lead to an inaccurate angle:
+\begin{itemize}
+	\item Accuracy of the current measurement.
+	\item Accuracy of the measured motor parameters used in the calculation.
+	\item Correctness of the calculation.
+	\item Taking into account the time between the moment of measurement and usage of the calculation outcome.
+\end{itemize}
+
+The challenge is to minimize the error in the calculated angle. 
+
+\section{Starting a BLDC motor}
+\subsection{Startup stages}
+When a BLDC motor is stationary (or rotates very slowly) there is no or a negligible BEMF. Starting a BLDC motor consists of three stages \cite{ST_Starting_Sequence_BLDC}:
+\begin{enumerate}
+	\item Pre-positioning of the rotor.
+	\item Starting ramp and accelerating the rotor (open loop). This stage decides the rotation direction of the rotor.
+	\item Switching to the closed loop control.
+\end{enumerate}
+
+As stated in \cite{ST_Starting_Sequence_BLDC} most of the parameters involved with the startup stages are 'hard coded' and depend on the motor's physical parameters. Once the BEMF signal is strong enough, the FOC method can start.
+
+\subsection{Challenges with starting a BLDC motor}
+The main challenges will be:
+\begin{enumerate}
+	\item Determine an efficient method for parameterize the startup sequence.
+	\item Determine when is a good moment to switch to FOC.
+\end{enumerate}
+
+\section{Simulation in Simulink}
+\subsection{Simscape electrical}
+Simulating the controller before implementing it in real life is a good method for getting a feel of some of the needed parameters.
+
+Luckily the Simscape Electrical package for Simulink contains a BLDC motor block \cite{SimscapeElectrical_BLDC} (see \autoref{fig:SimscapeElectricalBldcBlock}). MathWorks also created a short video series demonstration how to use the BLDC motor block \cite{SimscapeElectrical_BLDC_VideoSeries}. 
+
+\begin{figure}[H]
+	\includegraphics[width=0.5\textwidth]{SimscapeElectricalBldcBlock.JPG}
+	\caption{BLDC motor block in the Simscape Electrical package for Simulink.}
+	\label{fig:SimscapeElectricalBldcBlock}
+\end{figure}
+
+\subsection{Challenges with simulation in Simulink}
+The main challenges will be:
+\begin{enumerate}
+	\item Determining what good parameters are to simulate a typical BLDC motor used in an FPV drone.
+	\item Making the model flexible enough to allow for easy experimentation.
+	\item Keeping in mind that the model should be relatively easy to transfer to the real world.
+	\item Will a transfer-function based system or a state-space based system be created.
+	\item Determine which properties of the motor can be directly measured and which can be inferred.
+	\item Determine how the continuous controllers, seen in literature, should be translated to discrete controllers.
+	\item Determine how external forces (like the force from a rotating propeller and wind gusts) can be modeled.
+\end{enumerate}
+
+\section{Implementation in real life}
+After the Simulink model is created and tested it is time to transfer it to the real world. However, considering the available time for the project and the precision needed for the rotor angle estimation, I don't think it will be feasible to create and fine tune a physical PCB which can drive a BLDC motor. A first prototype will be feasible I think.
+
+\subsection{Circuit design}
+The prototype ESC will have a serial input, just like the currently used ESCs for FPV drones.
+
+The first thing to do is to design the circuit. The circuit will consist of:
+\begin{itemize}
+	\item Six MOSFETs to drive the phases.
+	\item MOSFET driver(s).
+	\item A microcontroller.
+	\item A current sensing circuit for the phases.
+	\item Protection circuitry.
+	\item Miscellanious components
+\end{itemize}
+
+\subsection{Translating the Simulink model into code}
+Before the circuit can be tested, code should be written for the microcontroller. Simulink can generate code for microcontrollers. If the generated code is not (easily) usable for the microcontroller, the choice can be made to implement the code from scratch.
+
+It will be important to implement the control loop with the correct sampling frequency, keeping in mind the workload and frequency of the microcontroller.
+
+\subsection{Challenges with the implementation in real life}
+The main challenges will be:
+\begin{enumerate}
+	\item Choosing the correct components for the physical prototype.
+	\item Designing the circuit.
+	\item Investigate whether or not the generated code from Simulink can be used.
+	\item Correctly implement the discrete controller.
+\end{enumerate}
+
+\chapter{Deliverables}
+
+\begin{itemize}
+	\item A Matlab-Simulink model with a parameterized BLDC motor model.
+	\item A Matlab-Simulink model with a (discrete) FOC implementation.
+	\item A method to verify the system (see \ref{section:Verifying_the_system}).
+	\item An elaboration on the limitations of the model (like motor size, motor speed/acceleration, etc.)
+	\item A description on how the created model can be implemented in real life.
+	\item (Hopefully) A first prototype which can be used to drive a BLDC motor used in FPV drones.
+\end{itemize}
+
+\section{Verifying the system} \label{section:Verifying_the_system}
+% https://www.youtube.com/watch?v=hUD1H5n9rF0
+% https://www.youtube.com/watch?v=NIpspXaPVcs
+% https://www.rcbenchmark.com/blogs/articles/how-to-measure-brushless-motor-and-propeller-efficiency
+As discussed in previous sections, the FC of an FPV drone sends a throttle value. Not an RPM setpoint. The received throttle value is eventually converted to a certain voltage to rotate the motor. To do this, the throttle needs to first be converted to a certain torque and then to a certain current for the Q axis. So to verify the system the torque should be measured.
+
+Torque is calculated as: $Torque = Force \times distance$
+
+In Simulink there are blocks which make it easy to measure the torque of the motor.
+
+In real life the static torque of a motor can be measured by attaching something 90\degree to the shaft of the rotor which then presses on a scale when the motor wants to turn. To measure the dynamic torque a dynamometer and prony brake \cite{Bench_Top_Dynomometer} can be used.
+
+\printbibliography
+
+
+\end{document}

@@ -1,0 +1,70 @@
+% https://www.researchgate.net/publication/50361161_State_space_modeling_and_simulation_of_sensorless_permanent_magnet_BLDC_motor
+% https://www.researchgate.net/publication/322217167_A_dynamic_analysis_of_BLDC_motor_by_using_MatlabSimulink_and_mathematica
+% https://core.ac.uk/download/pdf/53188902.pdf
+% https://www.kth.se/social/upload/4f14265df276543fdd000001/L2_show.pdf
+% https://www.researchgate.net/publication/45267009_Position_and_Speed_Control_of_Brushless_DC_Motors_Using_Sensorless_Techniques_and_Application_Trends
+
+% https://www.researchgate.net/publication/3218296_Synchronous_Motor_Phase_Control_by_Vector_Addition_of_Induced_Winding_Voltages
+% https://www.mdpi.com/1996-1073/13/20/5321/pdf
+% http://pe.org.pl/articles/2019/2/21.pdf
+% https://research.tue.nl/en/publications/linear-parameter-varying-control-of-nonlinear-systems-based-on-in
+
+% https://nl.mathworks.com/matlabcentral/fileexchange/51069-dynamic-mathematical-modeling-of-brushless-dc-motor-trapezodial-back-emf
+
+% https://nl.mathworks.com/help/physmod/sps/ug/parameterize-a-permanent-magnet-synchronous-motor.html;jsessionid=1229320e47a5b80a2374811837b2
+% https://nl.mathworks.com/help/matlab/ref/ode45.html
+
+% https://www.researchgate.net/publication/264188291_Brushless_DC_Motor_Electromagnetic_Torque_Estimation_with_Single-Phase_Current_Sensing
+
+% https://www.ima.umn.edu/2013-2014/ND5.27-6.13.14/21031
+
+% https://www.falstad.com/circuit/circuitjs.html?ctz=CQAgjCAMB0l3BWcA2aAOMB2ALGXyEw1sESQFJyRsBmAKABtwwAmENSsV8bbKKWPAgBaNNBqY0ATl4spCaZhoy6AJ2Zs8fLmxaQ0-GPXWjOvEKZB6DlI4wsd2lS1sOC4EMKkwIfmIhjImHA0CGooPNrIVvpu9ExeThGutu6QImISaMgsPmi+UjTYkPQA7g6ULGgGiY6QdOWJVTXcdQ0aVtUdNHpQ7TogPc6sBkN95cIjg72TVUn1E1OOlm3qLMUgyHzrZnyc8OHNm9tdKeAH6jQ00VuD15H8YAflOw9HKe3v5lfRHy8btwGtwWnQMtyOPXGoOmEUhIJ+xzu0Vs7QRzjqUMsk2ilhREwxKzxEWxsLYIMSkNqRIGJKBe363EBrRRxRo1Eh2Mo0hxcJ4AH0tnzIHzWHIwALoLwejQwEUpMhkFIfELBFtaCwZXKFUqEEK+SwRdg+fRWdRsDZ2PLwHNODQBUbhaKpOLUFKNbLsPLkCUlCq4GrpR6vT6WLrhQbZca6Kb1ShKME+DRIHtrfa9U7xSx0NlsDlFYUNdJxTA4M0tnmpAWaEW9RGDfQAG4WTC9RLCFvOXJk-gbJ6GARhCYd4kIOaJEHCUc1HHFTjI9rCLvE2cRCdTixL9szJcTleLlsWdf7skLzebvc7hdH5ZH82Y6-ox+Y5Yv4bziZHrA4h+Yvd34R7lau5wBYVptkB-Q4mBOLjgue5fhYgHvhuB6TJgOKbgME6YdwNJYQybCTLh3AkthqE0ueNh0AAzoeczHnRBhoci-AAGYAIYMNRACmNGISBDEAQJCGcCAHFcbxtGCWe5HoY8YmcTxfGTvR-7ruO4AKRJyl-kxK4aZQ4lKVJlEoZoLEQEZvFNpYRy2bEokUJQSC2AOdBNk0pzRNY8lOVQlSwDIyiEJAGqFGA8hsjAYQedw7xxQ5ml+S51DQAEmBSKFyaSMgyiQC50BhAAStCrhHD5rkbClqRhAA9uQUiIpQxSVv5aRKgQOQpWwCCNfQQA
+% https://www.falstad.com/circuit/circuitjs.html?ctz=CQAgjCAMB0l3BWEAmaAOSBmMA2ZAWNATnwWRzHxRxCX0wCgAbcMZEDV9yqyKWeBAC0YaJhw5SRBJCJgiONPQDsDAE5dw+KmDYpIaKP0YahnHiDN9kBozEYsrHPk4t8Y8SBBiL8OZchEkDhEypjKCArq4DQWuPqG7mLMMc6pbvye3tCKYMpoEpDIxX5BjADulpzIaIbxnJAMlfE1dXoNTZqtmpg2UJ267L0ubIbD-ZUiNSDjU4Ydk6NpTh0aBHySKPh8GWDw0d2b3bv7GpjiIJvnsdpGe3Cd61pUx7eNla9U188TWxs6ek27xQtUuL1BvV+3Uh8UhwO+Vwu7k63xcDV+ThENCcyMm6JWuNSWNScIGNBhNAWmmJgzBv1pm1pHW2mBA9HYWL4xGxcK0AH1JHzIHy2IEwHzsGIiEp8MpIPhpYoZAghbBsJhpdo5QqCmgEOLhcgRfgJQwWWzCEZueBpjtMAKTcLRXIJag0DUEPQiARFBJlKqsDUPV6fQV-EK+UawPbGOb2TE+NqZvK7kbBU7ii6cNBkJg0OElLh9bh8wHgrn8-l8EXdIp7YaRUbGAA3SwBHbY9uWZABIzceC0QdJBCdIRd+JCMh1GjAyfTCfbDsYnvcbGL1Kzqfd3tjvpCFcY9f7ndb4-sWcHs+WI8HzfTTGny13wyYzg40dvz8jGej095bGnlSQhHpawFwJYCiHuBQiQROkHAnBsTYvEs5Hv+17QfBo6XuhV4iHoF47rStL4eeAx6KR1IodhREUZeT4MAAzpYp6Xn+ygzuAIAAGYAIZMIxACmTEYS49HQehOw8fxQkiXhl44RxdjSQJwnMXOL6gVuKFGHxqlySBmngTpEB6bJ6n0S+B4mSpsmtk43QObYUkyHwSDuPwI6ti0oItM5XGuUOKCwCQGr6kUGrYNIrIwF5XS+XoNiJAF4HuWy0BgLUyhBDYsoFBqkDudAI4AEognUtzdElynbEFw4MAADqJEHYjhejeP0TUaVULhHrBdiNdeb5LEImBkJYcQDZMhAjPegGEqN40iLceG0o05owUpoFhOSKYbGmjp8ts0pHcKMAGiKZpYNekKbPutjjBs4rpqdJ0YKqF1gFdrK7v815XHtlzCi9x1oHy73nRGX0APa0EQdJ8Md8NFZ4oQ4AgeBpewkQzAwQA
+% https://www.falstad.com/circuit/circuitjs.html?ctz=CQAgjCAMB0l3BWEBmayxgQFgWAnAgBwBseATOmSGcSElsgFAA24YVhkbVYWWUUWPAhhUBAOzJx4vPmSFZORgCdu4PmrKRCAmE1UBaTuv5GuWnVz0sQZkMbu9+VoXBFiExSOjwkyvyRVwWidg6m1dNBswWmMYk0j4SAgDMnFoWWQsSDw8SE9ydEYAd01CHQwqZC0oErVqrgN2HQba0qayFpqOnWNIILJskGJ+Qa5Q8fgB8uHRmYnwKdVkZFoRlFWEybg6sYTOio1+0oOElZCj3aH1ytm26hn10+r7555aF+ONtf5z3Tq-o0+vc7E1aHYrHV4mCwp8oR93vZIaVbjDbusvuj+Lc+oxssgQAwqGCuApwZ82AB9EaUyCU9j+MD06CSMCEBDIPDiBicvDEQjIWlCMCs9mc7krXL8wV0sj0plMfGErCWex88CdARgOk0ukM2SUhDQEgIcikQjiGLkfJCxAms0BK1aBC0yly7WUxXeQkvGKk9WnLh4alYV36plG+00R2kXzBmB24im6MWq1xl2yynBpgAN1s4hq0ILjTSVCsizgi10ggQdQMxbCBgQmviXybLfB2XGtDbpcbXbCbebOlSBfz3T7bYHo+Jw9sk7rfZntmnC-ac9BG5VII3Dj3yNs+8PjVbdY3IvBu4PBmn25vlYM6qnD-V0Kf8Nsr-Bp-a04vK5fHtFzHJpxHBJdbl7EDblRSCoXYWwYIQmEoOJVEl23foAGdbA3JdzzArUQAAMwAQ2YLCAFNGBw+8SxAv9CPGEjyKomj5xApcIKYgQyIo6jaK3Ec51bcAWP49i6JXEcB1Erg+LY2iMJHPtRIgBTqLzOxTm0iJmIQSsCXLGBazzeJTnMvSxIMrgjOoWA8AYAhtQoPAfA5GtGDMhCLJ8qyIBslABCwaA2QtPItCwcQSE5fJPIABwAxp1WXJoEIgSFEvbEcHGnV9-iylUT01AxkGbRCNAykEisQkqrxBMq0I0VK4KVR9CLvSQPkgZw6HEENXWyXxKU4IUmT1PFvRvF51lSCJWi4TwBrpIbCBGukYHG+lJoJesalmrB1mQHqBAQF1dUpVb1rGsNGAAc1wjtHq6AqHkOOYdAsMTIQe04vr+oZr2BOxcXaZokWPCG22MCzYgPcz5gQ3EABN5yGUDwPRvsqGRyiyIAV2YAAXRhUdK-lEMI8mVM8agQFxgnidJ6STypmrUlpnG8dIwmSfaVYR3-KSMYaimOc7B81w44kuKxsdUMpzHWaA38HCFgiVee6WWfnWn+jJrAnxXFLty5xmSbJxqBFK8qb0++nud55nUkGRsyFdu26YZnmmfad3TDvZSQVU8DXZ-JLpNsK3PbbK3GlkzWbxN4SSsws8nqTntagAezuDFCRyXoXCqsBGCAA
+% https://www.falstad.com/circuit/circuitjs.html?ctz=CQAgjCAMB0l3BWEBmayxgQFgWAnAgBwBseATOmSGcSElsgFAA24YVhkbVYWWUUWPAgBaTNBpkwySIQDshLMQTImAJ27g+msrIEx1IEZy39jXXYX1oWRkyfOnr8SBBnQEZLGUIIVCyDw8OUYNMFpefnDqPS4DW2iTaMjnYSNxSUwlBDxVeUYAdx1CKwwqZF0oQs0KrjEfFErIavqrWvSGk2aNLy5ifl6nLjAXUOoSkH7x0u1h0Y1VWinFofBRosGUnxn+Zo2JlJWUveosPqj2Sd3q7avpxqr9tp5aCseUZCX+Fbjqn7s4u9HGJaI5fkVoiDwK8qCdom9EuDNFCync4ZcpqiuowAG5GOSVSEEupkAn6NZwNbkmAIFrE6FGTylWgnERMhkiM7DFktUkvIxchms9kiPn4yqismswWSqhshqyoFixWcymK4UKhwirBWDVWYEObFFA11BzRPXpOSgkVGgVqnV2up4HnGmXOjnuuGg92Q80tGVgK2Ooye3lksRBlWo1nK1GosSXdFyuOXKEx8Px5UO5oAZ0ZCuVIsDLIEADMAIbMHMAU0YedVJPDAaDwxAFartfryu7GZb4DblZrdfz+od8uZAgg7aH9ZlY8F5rLg87Riz+rFi6ny9xAPujksk7olIggJpO+itwvsX7CGPAjIsDwDAIIwouXwKkEtLxqMvlwPra3q2XBYNAYAlHIeCQLoWAKMQyBQUgZ4AA7BiI7pRpcJ5VKh467g2IYRPojC4TqdTsPqyCeOk2jYdKZoKjaSIiFRybaJhsKMGcyAhkGY5yJ8KCQLsdBYAA+v0YmQGJZx4IQYmcFJYFSWJYBcZAPGcm8Uyino7RcCoEnidJsnyYpMBgCpanceK5wCsswkCJ4RkqaZMnSRZVmMAA5iOHLsm8vy+bcZBePcZAICWrJdLutqtCAhpcHFJiXrQtoXgclzYgAJquZyWqCgyKlQ2XVhWACuzAAC6MLlLHEPqxZGJ866RdQIClRV1W1QKZqRmRq5tSVZXlpVNXGi1BVoU1rKTaKbUEeqYZyt2+VLcasaRkVM3+n11oKjtxoimuJJtc0dVYJ6AoYQ6w1dTVdWsQILHUZyVh3aN3V1aFUSFWFb3tZ1n3jau-1jmuSpkpCP1Cv69qUa92YtE9dQLi612gmO2q6i07KQpdUVjJe2ghWFcwuM0NlHOQIB4Jck1JeJkkmYEeBiboSlwJgxARSpZAKeJTA2Uov201hNPDJZzPuUEqkebA7AIHzqmWULGkgCL6TEFwdOwpO0nS7JbMjJzivKybas8QwcrtLrWuAmzhus2JSswHAlCu+zYls0wQA
+
+% https://www.researchgate.net/publication/261245356_Modulation_strategies_for_the_two-level_three-phase_delta-switch_voltage_source_inverter
+% https://ocw.mit.edu/courses/aeronautics-and-astronautics/16-30-feedback-control-systems-fall-2010/lecture-notes/MIT16_30F10_lec05.pdf
+
+% http://www.mate.tue.nl/mate/pdfs/11022.pdf
+% http://eceweb1.rutgers.edu/~gajic/psfiles/observers.pdf
+% https://www.cds.caltech.edu/~murray/courses/cds101/fa02/caltech/pph02-ch19-23.pdfz
+
+% https://www.microsemi.com/document-portal/doc_view/130909-sf-foc-pmsm-hall-ug
+
+% dq
+% https://eprints.soton.ac.uk/369964/1/ieee_tpels_dq_motor_ev.pdf
+% https://www.researchgate.net/publication/271050317_Modelling_analysis_and_simulation_of_permanent_magnet_brushless_DC_motors_for_sensorless_operation
+% http://www.kresttechnology.com/krest-academic-projects/krest-major-projects/EEE/B.Tech-EEE-Mini%20Simulation%202017/base%20papers/54%20Direct%20Torque%20and%20Indirect%20Flux%20Control.pdf
+% https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.616.4946&rep=rep1&type=pdf
+% https://www.researchgate.net/profile/Tim_Green7/publication/3478306_State-space_model_of_grid-connected_inverters_under_current_control_mode/links/541fc7a70cf241a65a1abc6d/State-space-model-of-grid-connected-inverters-under-current-control-mode.pdf
+% https://community.nxp.com/t5/NXP-Model-Based-Design-Tools/Module-9-Position-Observer-Part-1-2/m-p/747798
+
+BLDC_FOC_Params;
+
+Ia = 0;
+Ib = 0;
+Ic = 0;
+w = 0;
+theta = 0;
+
+x = [Ia Ib Ic w theta]';
+
+A = [-Rs/Ls 0 0 -(Ke*E(x(5), P))/Ls 0;
+    0 -Rs/Ls 0 -(Ke*E(x(5) - 2*pi/3, P))/Ls 0;
+    0 0 -Rs/Ls  -(Ke*E(x(5) + 2*pi/3, P))/Ls 0;
+    (Ke*E(x(5), P))/J (Ke*E(x(5) - 2*pi/3, P))/J (Ke*E(x(5) + 2*pi/3, P))/J -B/J 0;
+    0 0 0 P/2 0];
+
+B = [1/Ls 0 0 0;
+    0 1/Ls 0 0;
+    0 0 1/Ls 0;
+    0 0 0 -1/J;
+    0 0 0 0]; 
+
+
+E(pi/3, 2)
+
+function emf = E(angleMechanical, motorPoleCount)
+emf = sin(motorPoleCount * angleMechanical);
+end
